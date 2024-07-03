@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>{{ page_title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+        integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            {% block heading %}{% endblock %}
+        </div>
+    </div>
+
+    <div class="container" id="form_container">
+        <form id="theForm">
+            <div class="form-group">
+                <label for="name">Gender:</label>
+                <input class="form-control" type="text" inputmode="text" name="name" placeholder="Male/Female/Other" required>
+                <small class="form-text text-muted">Required*</small>
+            </div>
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <input class="form-control" type="text" readonly name="type" unselectable="on" value="{{ type }}">
+            </div>
+            {% block form_questions %}{% endblock %}
+            <input type="text" name="formid" value="{{ form_id }}" hidden>
+            <input type="text" name="thank" value="Thank you again for participating in this experiment! There are two experiments. Please make sure you participate in both. " hidden>
+            <input class="btn btn-info btn-lg" type="submit" value="Submit Results" id="submitBtn">
+            <p class="text-muted">
+                <small>If you encounter any issues submitting the results, please double-check if you have filled in your name and answered every question. Thank you.</small>
+            </p>
+        </form>
+</div>
+
+    <div class="container" style="padding-top: 60px;">
+        <p class="text-center text-muted">&copy; CHI, MRI, TUM</p>
+    </div>
+
+<script>
+        document.getElementById('theForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 防止表单默认提交
+
+            // 获取所有问题的容器
+            const questions = document.querySelectorAll('.question');
+            let textData = '';
+            textData += `Gender: ${document.querySelector('input[name="name"]').value}\n`;
+
+            questions.forEach(question => {
+                // 获取问题ID
+                const questionId = question.getAttribute('data-question-id');
+                // 获取该问题的选择
+                const selectedOption = question.querySelector('input[type="radio"]:checked');
+                if (selectedOption) {
+                    // 如果有选择，则记录问题和选择的值
+                    textData += `Question ${questionId}: ${selectedOption.value}\n`;
+                } else {
+                    // 如果没有选择，则记录未作答
+                    textData += `Question ${questionId}: No answer\n`;
+                }
+            });
+
+            // 创建 Blob 对象
+            const blob = new Blob([textData], { type: 'text/plain' });
+
+             // 获取文件名
+            const fileNameInput = document.querySelector('input[name="mail"]');
+            const fileName = fileNameInput.value || 'survey_results';
+
+            // 创建链接元素
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `${fileName}.txt`;
+
+            // 将链接添加到文档并触发下载
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    </script>
+</body>
+
+</html>

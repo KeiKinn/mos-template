@@ -1,0 +1,59 @@
+{% extends "base.html.jinja2" %}
+{% block heading %}
+    <h1 class="display-4">MOS Experiment</h1>
+    <p class="lead">Synthetic Speech Quality Evaluation</p>
+    <hr class="my-4">
+    <p>
+        Welcome to our experiment, which is a Mean Opinion Score (MOS) test for evaluating our Text-to-Speech (TTS) system. 
+        In this test, you will listen to a series of audio files that contain a mix of both <b>real human recordings</b> and <b>synthesized voices</b>.
+        Please make sure to use headphones for the best experience.
+    </p>
+    <p>
+        We kindly ask you to rate the quality of each audio file based on the following scale:
+    <ul>
+        <li><b>1 (Very Bad)</b>: The audio is highly distorted, difficult to understand, and unpleasant to listen to.</li>
+        <li><b>2 (Bad)</b>: The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</li>
+        <li><b>3 (Fair)</b>: The audio is somewhat clear, but there are some issues that slightly affect its quality.</li>
+        <li><b>4 (Good)</b>: The audio is clear and pleasant to listen to, with only minor issues.</li>
+        <li><b>5 (Very Good)</b>: The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</li>
+    </ul>
+    </p>
+    <p>
+        Your feedback is crucial for us to improve our TTS system. Thank you for your participation!
+    </p>
+
+{% endblock %}
+{% block form_questions %}
+    {% for question in questions %}
+        <div class="question" data-question-id="{{ question.id }}">
+            <div class="card-header">{{ question.title }}</div>
+            <div class="card-body">
+                <p>
+                    <audio controls src="{{ question.audio_path }}">
+                        Your browser does not support the audio element.
+                    </audio>
+                </p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ question.name }}" id="{{ question.name }}_1" value="5" required>
+                    <label class="form-check-label" for="{{ question.name }}_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ question.name }}" id="{{ question.name }}_2" value="4" required>
+                    <label class="form-check-label" for="{{ question.name }}_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ question.name }}" id="{{ question.name }}_3" value="3" required>
+                    <label class="form-check-label" for="{{ question.name }}_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ question.name }}" id="{{ question.name }}_4" value="2" required>
+                    <label class="form-check-label" for="{{ question.name }}_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ question.name }}" id="{{ question.name }}_5" value="1" required>
+                    <label class="form-check-label" for="{{ question.name }}_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

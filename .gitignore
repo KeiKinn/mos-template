@@ -1,0 +1,57 @@
+# User-specific files
+res/
+.venv/
+# Ignore build output
+build/
+dist/
+*.exe
+*.dll
+
+# Ignore dependencies
+node_modules/
+vendor/
+
+# Ignore IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore logs and temporary files
+logs/
+*.log
+*.tmp
+
+# Ignore compiled files
+*.class
+*.o
+*.pyc
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore configuration files
+config.ini
+config.yml
+
+# Ignore sensitive information
+secrets.txt
+credentials.json
+
+# Ignore generated documentation
+docs/
+
+# Ignore backup files
+*.bak
+*.swp
+*.~lock.*
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userprefs
+
+# Ignore cache and temporary files
+.cache/
+.tmp/

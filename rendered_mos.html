@@ -14,26 +14,43 @@
         <div class="container">
             
     <h1 class="display-4">MOS Experiment</h1>
-    <p class="lead">Synthetic Speech Quality Evaluation</p>
+    <p class="lead">Emotion Annotation ABX Experiment</p>
     <hr class="my-4">
-    <p>
-        Welcome to our experiment, which is a Mean Opinion Score (MOS) test for evaluating our Text-to-Speech (TTS) system. 
-        In this test, you will listen to a series of audio files that contain a mix of both <b>real human recordings</b> and <b>synthesized voices</b>.
-        Please make sure to use headphones for the best experience.
-    </p>
-    <p>
-        We kindly ask you to rate the quality of each audio file based on the following scale:
-    <ul>
-        <li><b>1 (Very Bad)</b>: The audio is highly distorted, difficult to understand, and unpleasant to listen to.</li>
-        <li><b>2 (Bad)</b>: The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</li>
-        <li><b>3 (Fair)</b>: The audio is somewhat clear, but there are some issues that slightly affect its quality.</li>
-        <li><b>4 (Good)</b>: The audio is clear and pleasant to listen to, with only minor issues.</li>
-        <li><b>5 (Very Good)</b>: The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</li>
-    </ul>
-    </p>
-    <p>
-        Your feedback is crucial for us to improve our TTS system. Thank you for your participation!
-    </p>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 获取用户语言设置
+            const userLang = navigator.language || navigator.userLanguage;
+
+            // 设置文本内容
+            const englishText = `
+                <p><strong>Thank you for participating in our experiment!</strong></p>
+                <p>
+                    In this study, you will watch a clip from the TV show <em>Friends</em>. 
+
+                    Please select the emotional state in the options that best describes the emotion state in the clip.
+                </p>
+                <p><strong>Please make sure to use headphones for the best experience.</strong></p>
+            `;
+
+            const chineseText = `
+                <p><strong>感谢您的参与！</strong></p>
+                <p>
+                    在本实验中，您将观看一段来自电视剧《老友记》的片段。 
+                    
+                    请选择您认为最能描述该片段中人物情绪的选项。
+                </p>
+                <p><strong>请确保使用耳机以获得最佳体验。</strong></p>
+            `;
+
+            // 根据用户的语言设置选择显示中文或英文
+            const descriptionElement = document.getElementById('experiment-description');
+            if (descriptionElement) {
+                descriptionElement.innerHTML = (userLang.startsWith('zh') ? chineseText : englishText);
+            }
+        });
+    </script>
+
+    <div id="experiment-description"></div>
 
 
         </div>
@@ -43,108 +60,1651 @@
         <form id="theForm">
             <div class="form-group">
                 <label for="name">Gender:</label>
-                <input class="form-control" type="text" inputmode="text" name="name" placeholder="Male/Female/Other" required>
+                <select class="form-control" name="name" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
                 <small class="form-text text-muted">Required*</small>
             </div>
             <div class="form-group">
                 <label for="type">Type:</label>
-                <input class="form-control" type="text" readonly name="type" unselectable="on" value="q-MOS">
+                <input class="form-control" type="text" readonly name="type" unselectable="on" value="v-MOS">
             </div>
             
     
-        <div class="question" data-question-id="1">
-            <div class="card-header">Question 1</div>
+        <div class="question" data-question-id="1" data-question-name="v1-d16_u7_Ran_Gne">
+            <div class="card-header">Question</div>
             <div class="card-body">
                 <p>
-                    <audio controls src="wav/q-mos/r/hap/5.wav">
-                        Your browser does not support the audio element.
-                    </audio>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia16_utt7_R[anger]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </p>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_1" value="5" required>
-                    <label class="form-check-label" for="q1_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v1-d16_u7_Ran_Gne_best" id="v1-d16_u7_Ran_Gne_best_1" value="anger">
+                            <label class="form-check-label" for="v1-d16_u7_Ran_Gne_best_1">
+                                anger
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v1-d16_u7_Ran_Gne_best" id="v1-d16_u7_Ran_Gne_best_2" value="neutral">
+                            <label class="form-check-label" for="v1-d16_u7_Ran_Gne_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_2" value="4" required>
-                    <label class="form-check-label" for="q1_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_3" value="3" required>
-                    <label class="form-check-label" for="q1_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_4" value="2" required>
-                    <label class="form-check-label" for="q1_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_5" value="1" required>
-                    <label class="form-check-label" for="q1_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                
+                <div class="alert alert-warning mt-2" id="v1-d16_u7_Ran_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
                 </div>
             </div>
         </div>
     
-        <div class="question" data-question-id="2">
-            <div class="card-header">Question 2</div>
+        <div class="question" data-question-id="2" data-question-name="v2-d23_u2_Rsu_Gne">
+            <div class="card-header">Question</div>
             <div class="card-body">
                 <p>
-                    <audio controls src="wav/q-mos/r/hap/3.wav">
-                        Your browser does not support the audio element.
-                    </audio>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia23_utt2_R[surprise]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </p>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_1" value="5" required>
-                    <label class="form-check-label" for="q2_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v2-d23_u2_Rsu_Gne_best" id="v2-d23_u2_Rsu_Gne_best_1" value="surprise">
+                            <label class="form-check-label" for="v2-d23_u2_Rsu_Gne_best_1">
+                                surprise
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v2-d23_u2_Rsu_Gne_best" id="v2-d23_u2_Rsu_Gne_best_2" value="neutral">
+                            <label class="form-check-label" for="v2-d23_u2_Rsu_Gne_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_2" value="4" required>
-                    <label class="form-check-label" for="q2_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_3" value="3" required>
-                    <label class="form-check-label" for="q2_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_4" value="2" required>
-                    <label class="form-check-label" for="q2_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_5" value="1" required>
-                    <label class="form-check-label" for="q2_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                
+                <div class="alert alert-warning mt-2" id="v2-d23_u2_Rsu_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
                 </div>
             </div>
         </div>
     
-        <div class="question" data-question-id="3">
-            <div class="card-header">Question 3</div>
+        <div class="question" data-question-id="3" data-question-name="v3-d24_u2_Rjo_Gne">
+            <div class="card-header">Question</div>
             <div class="card-body">
                 <p>
-                    <audio controls src="wav/q-mos/s/ang/1.wav">
-                        Your browser does not support the audio element.
-                    </audio>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia24_utt2_R[joy]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </p>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_1" value="5" required>
-                    <label class="form-check-label" for="q3_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v3-d24_u2_Rjo_Gne_best" id="v3-d24_u2_Rjo_Gne_best_1" value="joy">
+                            <label class="form-check-label" for="v3-d24_u2_Rjo_Gne_best_1">
+                                joy
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v3-d24_u2_Rjo_Gne_best" id="v3-d24_u2_Rjo_Gne_best_2" value="neutral">
+                            <label class="form-check-label" for="v3-d24_u2_Rjo_Gne_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_2" value="4" required>
-                    <label class="form-check-label" for="q3_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_3" value="3" required>
-                    <label class="form-check-label" for="q3_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_4" value="2" required>
-                    <label class="form-check-label" for="q3_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_5" value="1" required>
-                    <label class="form-check-label" for="q3_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                
+                <div class="alert alert-warning mt-2" id="v3-d24_u2_Rjo_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
                 </div>
             </div>
         </div>
     
+        <div class="question" data-question-id="4" data-question-name="v4-d25_u12_Rjo_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia25_utt12_R[joy]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v4-d25_u12_Rjo_Gne_best" id="v4-d25_u12_Rjo_Gne_best_1" value="joy">
+                            <label class="form-check-label" for="v4-d25_u12_Rjo_Gne_best_1">
+                                joy
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v4-d25_u12_Rjo_Gne_best" id="v4-d25_u12_Rjo_Gne_best_2" value="neutral">
+                            <label class="form-check-label" for="v4-d25_u12_Rjo_Gne_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v4-d25_u12_Rjo_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="5" data-question-name="v5-d25_u1_Rsa_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia25_utt1_R[sadness]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v5-d25_u1_Rsa_Gne_best" id="v5-d25_u1_Rsa_Gne_best_1" value="neutral">
+                            <label class="form-check-label" for="v5-d25_u1_Rsa_Gne_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v5-d25_u1_Rsa_Gne_best" id="v5-d25_u1_Rsa_Gne_best_2" value="sadness">
+                            <label class="form-check-label" for="v5-d25_u1_Rsa_Gne_best_2">
+                                sadness
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v5-d25_u1_Rsa_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="6" data-question-name="v6-d29_u9_Rsa_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia29_utt9_R[sadness]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v6-d29_u9_Rsa_Gne_best" id="v6-d29_u9_Rsa_Gne_best_1" value="sadness">
+                            <label class="form-check-label" for="v6-d29_u9_Rsa_Gne_best_1">
+                                sadness
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v6-d29_u9_Rsa_Gne_best" id="v6-d29_u9_Rsa_Gne_best_2" value="neutral">
+                            <label class="form-check-label" for="v6-d29_u9_Rsa_Gne_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v6-d29_u9_Rsa_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="7" data-question-name="v7-d2_u1_Rsu_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia2_utt1_R[surprise]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v7-d2_u1_Rsu_Gne_best" id="v7-d2_u1_Rsu_Gne_best_1" value="surprise">
+                            <label class="form-check-label" for="v7-d2_u1_Rsu_Gne_best_1">
+                                surprise
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v7-d2_u1_Rsu_Gne_best" id="v7-d2_u1_Rsu_Gne_best_2" value="neutral">
+                            <label class="form-check-label" for="v7-d2_u1_Rsu_Gne_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v7-d2_u1_Rsu_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="8" data-question-name="v8-d32_u6_Rjo_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia32_utt6_R[joy]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v8-d32_u6_Rjo_Gne_best" id="v8-d32_u6_Rjo_Gne_best_1" value="neutral">
+                            <label class="form-check-label" for="v8-d32_u6_Rjo_Gne_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v8-d32_u6_Rjo_Gne_best" id="v8-d32_u6_Rjo_Gne_best_2" value="joy">
+                            <label class="form-check-label" for="v8-d32_u6_Rjo_Gne_best_2">
+                                joy
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v8-d32_u6_Rjo_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="9" data-question-name="v9-d37_u5_Rjo_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia37_utt5_R[joy]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v9-d37_u5_Rjo_Gne_best" id="v9-d37_u5_Rjo_Gne_best_1" value="neutral">
+                            <label class="form-check-label" for="v9-d37_u5_Rjo_Gne_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v9-d37_u5_Rjo_Gne_best" id="v9-d37_u5_Rjo_Gne_best_2" value="joy">
+                            <label class="form-check-label" for="v9-d37_u5_Rjo_Gne_best_2">
+                                joy
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v9-d37_u5_Rjo_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="10" data-question-name="v10-d42_u2_Rdi_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia42_utt2_R[disgust]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v10-d42_u2_Rdi_Gne_best" id="v10-d42_u2_Rdi_Gne_best_1" value="neutral">
+                            <label class="form-check-label" for="v10-d42_u2_Rdi_Gne_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v10-d42_u2_Rdi_Gne_best" id="v10-d42_u2_Rdi_Gne_best_2" value="disgust">
+                            <label class="form-check-label" for="v10-d42_u2_Rdi_Gne_best_2">
+                                disgust
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v10-d42_u2_Rdi_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="11" data-question-name="v11-d4_u4_Rsu_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia4_utt4_R[surprise]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v11-d4_u4_Rsu_Gne_best" id="v11-d4_u4_Rsu_Gne_best_1" value="neutral">
+                            <label class="form-check-label" for="v11-d4_u4_Rsu_Gne_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v11-d4_u4_Rsu_Gne_best" id="v11-d4_u4_Rsu_Gne_best_2" value="surprise">
+                            <label class="form-check-label" for="v11-d4_u4_Rsu_Gne_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v11-d4_u4_Rsu_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="12" data-question-name="v12-d5_u7_Rjo_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia5_utt7_R[joy]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v12-d5_u7_Rjo_Gne_best" id="v12-d5_u7_Rjo_Gne_best_1" value="neutral">
+                            <label class="form-check-label" for="v12-d5_u7_Rjo_Gne_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v12-d5_u7_Rjo_Gne_best" id="v12-d5_u7_Rjo_Gne_best_2" value="joy">
+                            <label class="form-check-label" for="v12-d5_u7_Rjo_Gne_best_2">
+                                joy
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v12-d5_u7_Rjo_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="13" data-question-name="v13-d5_u8_Rjo_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia5_utt8_R[joy]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v13-d5_u8_Rjo_Gne_best" id="v13-d5_u8_Rjo_Gne_best_1" value="neutral">
+                            <label class="form-check-label" for="v13-d5_u8_Rjo_Gne_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v13-d5_u8_Rjo_Gne_best" id="v13-d5_u8_Rjo_Gne_best_2" value="joy">
+                            <label class="form-check-label" for="v13-d5_u8_Rjo_Gne_best_2">
+                                joy
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v13-d5_u8_Rjo_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="14" data-question-name="v14-d7_u8_Rsu_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia7_utt8_R[surprise]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v14-d7_u8_Rsu_Gne_best" id="v14-d7_u8_Rsu_Gne_best_1" value="neutral">
+                            <label class="form-check-label" for="v14-d7_u8_Rsu_Gne_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v14-d7_u8_Rsu_Gne_best" id="v14-d7_u8_Rsu_Gne_best_2" value="surprise">
+                            <label class="form-check-label" for="v14-d7_u8_Rsu_Gne_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v14-d7_u8_Rsu_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="15" data-question-name="v15-d9_u12_Rsu_Gne">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/neutral/dia9_utt12_R[surprise]_GT[neutral].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v15-d9_u12_Rsu_Gne_best" id="v15-d9_u12_Rsu_Gne_best_1" value="surprise">
+                            <label class="form-check-label" for="v15-d9_u12_Rsu_Gne_best_1">
+                                surprise
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v15-d9_u12_Rsu_Gne_best" id="v15-d9_u12_Rsu_Gne_best_2" value="neutral">
+                            <label class="form-check-label" for="v15-d9_u12_Rsu_Gne_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v15-d9_u12_Rsu_Gne_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="16" data-question-name="v16-d100_u19_Rfr_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia100_utt19_R[frustration]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v16-d100_u19_Rfr_Gsa_best" id="v16-d100_u19_Rfr_Gsa_best_1" value="frustration">
+                            <label class="form-check-label" for="v16-d100_u19_Rfr_Gsa_best_1">
+                                frustration
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v16-d100_u19_Rfr_Gsa_best" id="v16-d100_u19_Rfr_Gsa_best_2" value="sadness">
+                            <label class="form-check-label" for="v16-d100_u19_Rfr_Gsa_best_2">
+                                sadness
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v16-d100_u19_Rfr_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="17" data-question-name="v17-d101_u2_Rsu_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia101_utt2_R[surprise]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v17-d101_u2_Rsu_Gsa_best" id="v17-d101_u2_Rsu_Gsa_best_1" value="sadness">
+                            <label class="form-check-label" for="v17-d101_u2_Rsu_Gsa_best_1">
+                                sadness
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v17-d101_u2_Rsu_Gsa_best" id="v17-d101_u2_Rsu_Gsa_best_2" value="surprise">
+                            <label class="form-check-label" for="v17-d101_u2_Rsu_Gsa_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v17-d101_u2_Rsu_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="18" data-question-name="v18-d102_u7_Rne_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia102_utt7_R[neutral]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v18-d102_u7_Rne_Gsa_best" id="v18-d102_u7_Rne_Gsa_best_1" value="neutral">
+                            <label class="form-check-label" for="v18-d102_u7_Rne_Gsa_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v18-d102_u7_Rne_Gsa_best" id="v18-d102_u7_Rne_Gsa_best_2" value="sadness">
+                            <label class="form-check-label" for="v18-d102_u7_Rne_Gsa_best_2">
+                                sadness
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v18-d102_u7_Rne_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="19" data-question-name="v19-d107_u6_Rne_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia107_utt6_R[neutral]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v19-d107_u6_Rne_Gsa_best" id="v19-d107_u6_Rne_Gsa_best_1" value="neutral">
+                            <label class="form-check-label" for="v19-d107_u6_Rne_Gsa_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v19-d107_u6_Rne_Gsa_best" id="v19-d107_u6_Rne_Gsa_best_2" value="sadness">
+                            <label class="form-check-label" for="v19-d107_u6_Rne_Gsa_best_2">
+                                sadness
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v19-d107_u6_Rne_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="20" data-question-name="v20-d119_u1_Rsu_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia119_utt1_R[surprise]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v20-d119_u1_Rsu_Gsa_best" id="v20-d119_u1_Rsu_Gsa_best_1" value="sadness">
+                            <label class="form-check-label" for="v20-d119_u1_Rsu_Gsa_best_1">
+                                sadness
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v20-d119_u1_Rsu_Gsa_best" id="v20-d119_u1_Rsu_Gsa_best_2" value="surprise">
+                            <label class="form-check-label" for="v20-d119_u1_Rsu_Gsa_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v20-d119_u1_Rsu_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="21" data-question-name="v21-d124_u1_Rne_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia124_utt1_R[neutral]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v21-d124_u1_Rne_Gsa_best" id="v21-d124_u1_Rne_Gsa_best_1" value="neutral">
+                            <label class="form-check-label" for="v21-d124_u1_Rne_Gsa_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v21-d124_u1_Rne_Gsa_best" id="v21-d124_u1_Rne_Gsa_best_2" value="sadness">
+                            <label class="form-check-label" for="v21-d124_u1_Rne_Gsa_best_2">
+                                sadness
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v21-d124_u1_Rne_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="22" data-question-name="v22-d130_u10_Rne_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia130_utt10_R[neutral]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v22-d130_u10_Rne_Gsa_best" id="v22-d130_u10_Rne_Gsa_best_1" value="neutral">
+                            <label class="form-check-label" for="v22-d130_u10_Rne_Gsa_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v22-d130_u10_Rne_Gsa_best" id="v22-d130_u10_Rne_Gsa_best_2" value="sadness">
+                            <label class="form-check-label" for="v22-d130_u10_Rne_Gsa_best_2">
+                                sadness
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v22-d130_u10_Rne_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="23" data-question-name="v23-d17_u11_Ran_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia17_utt11_R[anger]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v23-d17_u11_Ran_Gsa_best" id="v23-d17_u11_Ran_Gsa_best_1" value="sadness">
+                            <label class="form-check-label" for="v23-d17_u11_Ran_Gsa_best_1">
+                                sadness
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v23-d17_u11_Ran_Gsa_best" id="v23-d17_u11_Ran_Gsa_best_2" value="anger">
+                            <label class="form-check-label" for="v23-d17_u11_Ran_Gsa_best_2">
+                                anger
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v23-d17_u11_Ran_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="24" data-question-name="v24-d2_u2_Rne_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia2_utt2_R[neutral]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v24-d2_u2_Rne_Gsa_best" id="v24-d2_u2_Rne_Gsa_best_1" value="sadness">
+                            <label class="form-check-label" for="v24-d2_u2_Rne_Gsa_best_1">
+                                sadness
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v24-d2_u2_Rne_Gsa_best" id="v24-d2_u2_Rne_Gsa_best_2" value="neutral">
+                            <label class="form-check-label" for="v24-d2_u2_Rne_Gsa_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v24-d2_u2_Rne_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="25" data-question-name="v25-d33_u0_Rne_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia33_utt0_R[neutral]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v25-d33_u0_Rne_Gsa_best" id="v25-d33_u0_Rne_Gsa_best_1" value="sadness">
+                            <label class="form-check-label" for="v25-d33_u0_Rne_Gsa_best_1">
+                                sadness
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v25-d33_u0_Rne_Gsa_best" id="v25-d33_u0_Rne_Gsa_best_2" value="neutral">
+                            <label class="form-check-label" for="v25-d33_u0_Rne_Gsa_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v25-d33_u0_Rne_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="26" data-question-name="v26-d33_u6_Rfe_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia33_utt6_R[fear]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v26-d33_u6_Rfe_Gsa_best" id="v26-d33_u6_Rfe_Gsa_best_1" value="fear">
+                            <label class="form-check-label" for="v26-d33_u6_Rfe_Gsa_best_1">
+                                fear
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v26-d33_u6_Rfe_Gsa_best" id="v26-d33_u6_Rfe_Gsa_best_2" value="sadness">
+                            <label class="form-check-label" for="v26-d33_u6_Rfe_Gsa_best_2">
+                                sadness
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v26-d33_u6_Rfe_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="27" data-question-name="v27-d47_u6_Rne_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia47_utt6_R[neutral]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v27-d47_u6_Rne_Gsa_best" id="v27-d47_u6_Rne_Gsa_best_1" value="sadness">
+                            <label class="form-check-label" for="v27-d47_u6_Rne_Gsa_best_1">
+                                sadness
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v27-d47_u6_Rne_Gsa_best" id="v27-d47_u6_Rne_Gsa_best_2" value="neutral">
+                            <label class="form-check-label" for="v27-d47_u6_Rne_Gsa_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v27-d47_u6_Rne_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="28" data-question-name="v28-d68_u3_Rsu_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia68_utt3_R[surprise]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v28-d68_u3_Rsu_Gsa_best" id="v28-d68_u3_Rsu_Gsa_best_1" value="sadness">
+                            <label class="form-check-label" for="v28-d68_u3_Rsu_Gsa_best_1">
+                                sadness
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v28-d68_u3_Rsu_Gsa_best" id="v28-d68_u3_Rsu_Gsa_best_2" value="surprise">
+                            <label class="form-check-label" for="v28-d68_u3_Rsu_Gsa_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v28-d68_u3_Rsu_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="29" data-question-name="v29-d83_u7_Rfe_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia83_utt7_R[fear]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v29-d83_u7_Rfe_Gsa_best" id="v29-d83_u7_Rfe_Gsa_best_1" value="fear">
+                            <label class="form-check-label" for="v29-d83_u7_Rfe_Gsa_best_1">
+                                fear
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v29-d83_u7_Rfe_Gsa_best" id="v29-d83_u7_Rfe_Gsa_best_2" value="sadness">
+                            <label class="form-check-label" for="v29-d83_u7_Rfe_Gsa_best_2">
+                                sadness
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v29-d83_u7_Rfe_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="30" data-question-name="v30-d88_u8_Rne_Gsa">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/sadness/dia88_utt8_R[neutral]_GT[sadness].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v30-d88_u8_Rne_Gsa_best" id="v30-d88_u8_Rne_Gsa_best_1" value="neutral">
+                            <label class="form-check-label" for="v30-d88_u8_Rne_Gsa_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v30-d88_u8_Rne_Gsa_best" id="v30-d88_u8_Rne_Gsa_best_2" value="sadness">
+                            <label class="form-check-label" for="v30-d88_u8_Rne_Gsa_best_2">
+                                sadness
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v30-d88_u8_Rne_Gsa_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="31" data-question-name="v31-d123_u10_Ran_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia123_utt10_R[anger]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v31-d123_u10_Ran_Gsu_best" id="v31-d123_u10_Ran_Gsu_best_1" value="anger">
+                            <label class="form-check-label" for="v31-d123_u10_Ran_Gsu_best_1">
+                                anger
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v31-d123_u10_Ran_Gsu_best" id="v31-d123_u10_Ran_Gsu_best_2" value="surprise">
+                            <label class="form-check-label" for="v31-d123_u10_Ran_Gsu_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v31-d123_u10_Ran_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="32" data-question-name="v32-d124_u10_Rjo_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia124_utt10_R[joy]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v32-d124_u10_Rjo_Gsu_best" id="v32-d124_u10_Rjo_Gsu_best_1" value="joy">
+                            <label class="form-check-label" for="v32-d124_u10_Rjo_Gsu_best_1">
+                                joy
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v32-d124_u10_Rjo_Gsu_best" id="v32-d124_u10_Rjo_Gsu_best_2" value="surprise">
+                            <label class="form-check-label" for="v32-d124_u10_Rjo_Gsu_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v32-d124_u10_Rjo_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="33" data-question-name="v33-d125_u22_Ran_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia125_utt22_R[anger]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v33-d125_u22_Ran_Gsu_best" id="v33-d125_u22_Ran_Gsu_best_1" value="surprise">
+                            <label class="form-check-label" for="v33-d125_u22_Ran_Gsu_best_1">
+                                surprise
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v33-d125_u22_Ran_Gsu_best" id="v33-d125_u22_Ran_Gsu_best_2" value="anger">
+                            <label class="form-check-label" for="v33-d125_u22_Ran_Gsu_best_2">
+                                anger
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v33-d125_u22_Ran_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="34" data-question-name="v34-d138_u2_Rfe_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia138_utt2_R[fear]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v34-d138_u2_Rfe_Gsu_best" id="v34-d138_u2_Rfe_Gsu_best_1" value="fear">
+                            <label class="form-check-label" for="v34-d138_u2_Rfe_Gsu_best_1">
+                                fear
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v34-d138_u2_Rfe_Gsu_best" id="v34-d138_u2_Rfe_Gsu_best_2" value="surprise">
+                            <label class="form-check-label" for="v34-d138_u2_Rfe_Gsu_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v34-d138_u2_Rfe_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="35" data-question-name="v35-d2_u3_Ran_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia2_utt3_R[anger]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v35-d2_u3_Ran_Gsu_best" id="v35-d2_u3_Ran_Gsu_best_1" value="surprise">
+                            <label class="form-check-label" for="v35-d2_u3_Ran_Gsu_best_1">
+                                surprise
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v35-d2_u3_Ran_Gsu_best" id="v35-d2_u3_Ran_Gsu_best_2" value="anger">
+                            <label class="form-check-label" for="v35-d2_u3_Ran_Gsu_best_2">
+                                anger
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v35-d2_u3_Ran_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="36" data-question-name="v36-d32_u0_Rjo_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia32_utt0_R[joy]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v36-d32_u0_Rjo_Gsu_best" id="v36-d32_u0_Rjo_Gsu_best_1" value="joy">
+                            <label class="form-check-label" for="v36-d32_u0_Rjo_Gsu_best_1">
+                                joy
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v36-d32_u0_Rjo_Gsu_best" id="v36-d32_u0_Rjo_Gsu_best_2" value="surprise">
+                            <label class="form-check-label" for="v36-d32_u0_Rjo_Gsu_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v36-d32_u0_Rjo_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="37" data-question-name="v37-d53_u0_Rjo_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia53_utt0_R[joy]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v37-d53_u0_Rjo_Gsu_best" id="v37-d53_u0_Rjo_Gsu_best_1" value="joy">
+                            <label class="form-check-label" for="v37-d53_u0_Rjo_Gsu_best_1">
+                                joy
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v37-d53_u0_Rjo_Gsu_best" id="v37-d53_u0_Rjo_Gsu_best_2" value="surprise">
+                            <label class="form-check-label" for="v37-d53_u0_Rjo_Gsu_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v37-d53_u0_Rjo_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="38" data-question-name="v38-d56_u10_Rjo_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia56_utt10_R[joy]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v38-d56_u10_Rjo_Gsu_best" id="v38-d56_u10_Rjo_Gsu_best_1" value="joy">
+                            <label class="form-check-label" for="v38-d56_u10_Rjo_Gsu_best_1">
+                                joy
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v38-d56_u10_Rjo_Gsu_best" id="v38-d56_u10_Rjo_Gsu_best_2" value="surprise">
+                            <label class="form-check-label" for="v38-d56_u10_Rjo_Gsu_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v38-d56_u10_Rjo_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="39" data-question-name="v39-d61_u0_Rjo_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia61_utt0_R[joy]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v39-d61_u0_Rjo_Gsu_best" id="v39-d61_u0_Rjo_Gsu_best_1" value="joy">
+                            <label class="form-check-label" for="v39-d61_u0_Rjo_Gsu_best_1">
+                                joy
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v39-d61_u0_Rjo_Gsu_best" id="v39-d61_u0_Rjo_Gsu_best_2" value="surprise">
+                            <label class="form-check-label" for="v39-d61_u0_Rjo_Gsu_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v39-d61_u0_Rjo_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="40" data-question-name="v40-d65_u10_Rne_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia65_utt10_R[neutral]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v40-d65_u10_Rne_Gsu_best" id="v40-d65_u10_Rne_Gsu_best_1" value="neutral">
+                            <label class="form-check-label" for="v40-d65_u10_Rne_Gsu_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v40-d65_u10_Rne_Gsu_best" id="v40-d65_u10_Rne_Gsu_best_2" value="surprise">
+                            <label class="form-check-label" for="v40-d65_u10_Rne_Gsu_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v40-d65_u10_Rne_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="41" data-question-name="v41-d65_u4_Rne_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia65_utt4_R[neutral]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v41-d65_u4_Rne_Gsu_best" id="v41-d65_u4_Rne_Gsu_best_1" value="surprise">
+                            <label class="form-check-label" for="v41-d65_u4_Rne_Gsu_best_1">
+                                surprise
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v41-d65_u4_Rne_Gsu_best" id="v41-d65_u4_Rne_Gsu_best_2" value="neutral">
+                            <label class="form-check-label" for="v41-d65_u4_Rne_Gsu_best_2">
+                                neutral
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v41-d65_u4_Rne_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="42" data-question-name="v42-d77_u0_Ran_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia77_utt0_R[anger]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v42-d77_u0_Ran_Gsu_best" id="v42-d77_u0_Ran_Gsu_best_1" value="surprise">
+                            <label class="form-check-label" for="v42-d77_u0_Ran_Gsu_best_1">
+                                surprise
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v42-d77_u0_Ran_Gsu_best" id="v42-d77_u0_Ran_Gsu_best_2" value="anger">
+                            <label class="form-check-label" for="v42-d77_u0_Ran_Gsu_best_2">
+                                anger
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v42-d77_u0_Ran_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="43" data-question-name="v43-d83_u6_Rne_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia83_utt6_R[neutral]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v43-d83_u6_Rne_Gsu_best" id="v43-d83_u6_Rne_Gsu_best_1" value="neutral">
+                            <label class="form-check-label" for="v43-d83_u6_Rne_Gsu_best_1">
+                                neutral
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v43-d83_u6_Rne_Gsu_best" id="v43-d83_u6_Rne_Gsu_best_2" value="surprise">
+                            <label class="form-check-label" for="v43-d83_u6_Rne_Gsu_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v43-d83_u6_Rne_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="44" data-question-name="v44-d90_u2_Rdi_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia90_utt2_R[disgust]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v44-d90_u2_Rdi_Gsu_best" id="v44-d90_u2_Rdi_Gsu_best_1" value="disgust">
+                            <label class="form-check-label" for="v44-d90_u2_Rdi_Gsu_best_1">
+                                disgust
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v44-d90_u2_Rdi_Gsu_best" id="v44-d90_u2_Rdi_Gsu_best_2" value="surprise">
+                            <label class="form-check-label" for="v44-d90_u2_Rdi_Gsu_best_2">
+                                surprise
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v44-d90_u2_Rdi_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+        <div class="question" data-question-id="45" data-question-name="v45-d95_u4_Ran_Gsu">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="res/video/surprise/dia95_utt4_R[anger]_GT[surprise].mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v45-d95_u4_Ran_Gsu_best" id="v45-d95_u4_Ran_Gsu_best_1" value="surprise">
+                            <label class="form-check-label" for="v45-d95_u4_Ran_Gsu_best_1">
+                                surprise
+                            </label>
+                        </div>
+                    
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="v45-d95_u4_Ran_Gsu_best" id="v45-d95_u4_Ran_Gsu_best_2" value="anger">
+                            <label class="form-check-label" for="v45-d95_u4_Ran_Gsu_best_2">
+                                anger
+                            </label>
+                        </div>
+                    
+                </div>
+                
+                <div class="alert alert-warning mt-2" id="v45-d95_u4_Ran_Gsu_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = document.querySelectorAll('.question');
+            const min = 21;
+            const max = 42;
+            let n = Math.floor(Math.random() * ((max - min) / 7 + 1)) * 7 + min; //Define the number of random questions to display
+            const shuffled = [...questions].sort(() => Math.random() - 0.5).slice(0, n);
+            
+            // Hide all questions first
+            questions.forEach(question => question.style.display = 'none');
+
+            // Show only the randomly selected questions
+            shuffled.forEach(question => {
+                question.style.display = 'block';  // Display the selected question
+            });
+
+            // Re-select displayed questions after showing them
+            const displayedQuestions = document.querySelectorAll('.question[style="display: block;"]');
+
+            // Update the sequence number for all displayed questions
+            displayedQuestions.forEach((question, index) => {
+                const header = question.querySelector('.card-header');
+                header.textContent = `Question ${index + 1}`;  // Add sequence number dynamically
+                
+                // Make sure the radio buttons are visible and valid before submission
+                const bestInputs = question.querySelectorAll('.best-keyword');
+                bestInputs.forEach(input => input.required = true);  // Ensure required for visible inputs
+                const secondBestInputs = question.querySelectorAll('.second-best-keyword');
+                secondBestInputs.forEach(input => input.required = true);
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.question[style="display: block;"]').forEach(question => {
+                const bestInputs = question.querySelectorAll('.best-keyword');
+                const secondBestInputs = question.querySelectorAll('.second-best-keyword');
+                const warning = question.querySelector(`#${question.dataset.questionName}_warning`);
+                
+                function checkDuplicate() {
+                    const bestSelected = [...bestInputs].find(input => input.checked)?.value;
+                    const secondBestSelected = [...secondBestInputs].find(input => input.checked)?.value;
+
+                    if (bestSelected && secondBestSelected && bestSelected === secondBestSelected) {
+                        warning.style.display = 'block';
+                        [...secondBestInputs].forEach(input => input.checked = false);
+                    } else {
+                        warning.style.display = 'none';
+                    }
+                }
+
+                [...bestInputs, ...secondBestInputs].forEach(input => {
+                    input.addEventListener('change', checkDuplicate);
+                });
+            });
+        });
+    </script>
 
             <input type="text" name="formid" value="1" hidden>
             <input type="text" name="thank" value="Thank you again for participating in this experiment! There are two experiments. Please make sure you participate in both. " hidden>
@@ -166,28 +1726,39 @@
             // 获取所有问题的容器
             const questions = document.querySelectorAll('.question');
             let textData = '';
-            textData += `Gender: ${document.querySelector('input[name="name"]').value}\n`;
+            textData += `Gender,${document.querySelector('select[name="name"]').value},\n`;
 
             questions.forEach(question => {
                 // 获取问题ID
                 const questionId = question.getAttribute('data-question-id');
-                // 获取该问题的选择
-                const selectedOption = question.querySelector('input[type="radio"]:checked');
-                if (selectedOption) {
-                    // 如果有选择，则记录问题和选择的值
-                    textData += `Question ${questionId}: ${selectedOption.value}\n`;
-                } else {
-                    // 如果没有选择，则记录未作答
-                    textData += `Question ${questionId}: No answer\n`;
-                }
+                
+                // 获取该问题的最佳选择 (Best choice)
+                const bestSelectedOption = question.querySelector('input[type="radio"]:checked.best-keyword');
+                const bestValue = bestSelectedOption ? bestSelectedOption.value : "None";  // If not selected, use "None"
+
+                // 获取该问题的第二佳选择 (Second best choice)
+                const secondBestSelectedOption = question.querySelector('input[type="radio"]:checked.second-best-keyword');
+                const secondBestValue = secondBestSelectedOption ? secondBestSelectedOption.value : "None";  // If not selected, use "None"
+                
+                // 记录选择的值
+                const questionName = question.getAttribute('data-question-name');
+                textData += `Question-${questionId}-${questionName},${bestValue},${secondBestValue}\n`;
             });
+
 
             // 创建 Blob 对象
             const blob = new Blob([textData], { type: 'text/plain' });
 
              // 获取文件名
-            const fileNameInput = document.querySelector('input[name="mail"]');
-            const fileName = fileNameInput.value || 'survey_results';
+            const fileNameInput = document.querySelector('input[name="type"]');
+            const baseFileName = fileNameInput.value || 'survey_results';
+
+            // Generating a unique suffix using a timestamp and a random string
+            const uniqueSuffix = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+            // Combine base filename and unique suffix
+            const fileName = `${baseFileName}_${uniqueSuffix}`;
+
 
             // 创建链接元素
             const a = document.createElement('a');

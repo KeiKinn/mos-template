@@ -1,0 +1,145 @@
+{% extends "base.html.jinja2" %}
+{% block heading %}
+    <h1 class="display-4">MOS Experiment</h1>
+    <p class="lead">Emotion Annotation ABX Experiment</p>
+    <hr class="my-4">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 获取用户语言设置
+            const userLang = navigator.language || navigator.userLanguage;
+
+            // 设置文本内容
+            const englishText = `
+                <p><strong>Thank you for participating in our experiment!</strong></p>
+                <p>
+                    In this study, you will watch a clip from the TV show <em>Friends</em>. 
+
+                    Please select the emotional state in the options that best describes the emotion state in the clip.
+                </p>
+                <p><strong>Please make sure to use headphones for the best experience.</strong></p>
+            `;
+
+            const chineseText = `
+                <p><strong>感谢您的参与！</strong></p>
+                <p>
+                    在本实验中，您将观看一段来自电视剧《老友记》的片段。 
+                    
+                    请选择您认为最能描述该片段中人物情绪的选项。
+                </p>
+                <p><strong>请确保使用耳机以获得最佳体验。</strong></p>
+            `;
+
+            // 根据用户的语言设置选择显示中文或英文
+            const descriptionElement = document.getElementById('experiment-description');
+            if (descriptionElement) {
+                descriptionElement.innerHTML = (userLang.startsWith('zh') ? chineseText : englishText);
+            }
+        });
+    </script>
+
+    <div id="experiment-description"></div>
+
+{% endblock %}
+
+{% block form_questions %}
+    {% for question in questions %}
+        <div class="question" data-question-id="{{ question.id|e }}" data-question-name="{{ question.name|e }}">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <p>
+                    <video controls style="max-width: 40%; height: auto;" loading="lazy">
+                        <source src="{{ question.media_path }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <div class="form-group">
+                    <p><strong>Best Described:</strong></p>
+                    {% for keyword in question.keywords %}
+                        <div class="form-check">
+                            <input class="form-check-input best-keyword" type="radio" name="{{ question.name }}_best" id="{{ question.name }}_best_{{ loop.index }}" value="{{ keyword|e }}">
+                            <label class="form-check-label" for="{{ question.name }}_best_{{ loop.index }}">
+                                {{ keyword|e }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if question.keywords|length > 2 %}
+                <div class="form-group mt-3">
+                    <p><strong>Second Best Described:</strong></p>
+                    {% for keyword in question.keywords %}
+                        <div class="form-check">
+                            <input class="form-check-input second-best-keyword" type="radio" name="{{ question.name }}_second_best" id="{{ question.name }}_second_best_{{ loop.index }}" value="{{ keyword|e }}">
+                            <label class="form-check-label" for="{{ question.name }}_second_best_{{ loop.index }}">
+                                {{ keyword|e }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="alert alert-warning mt-2" id="{{ question.name }}_warning" style="display: none;">
+                    Note: You cannot select the same keyword for both best and second-best choices.
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = document.querySelectorAll('.question');
+            const min = 21;
+            const max = 42;
+            let n = Math.floor(Math.random() * ((max - min) / 7 + 1)) * 7 + min; //Define the number of random questions to display
+            const shuffled = [...questions].sort(() => Math.random() - 0.5).slice(0, n);
+            
+            // Hide all questions first
+            questions.forEach(question => question.style.display = 'none');
+
+            // Show only the randomly selected questions
+            shuffled.forEach(question => {
+                question.style.display = 'block';  // Display the selected question
+            });
+
+            // Re-select displayed questions after showing them
+            const displayedQuestions = document.querySelectorAll('.question[style="display: block;"]');
+
+            // Update the sequence number for all displayed questions
+            displayedQuestions.forEach((question, index) => {
+                const header = question.querySelector('.card-header');
+                header.textContent = `Question ${index + 1}`;  // Add sequence number dynamically
+                
+                // Make sure the radio buttons are visible and valid before submission
+                const bestInputs = question.querySelectorAll('.best-keyword');
+                bestInputs.forEach(input => input.required = true);  // Ensure required for visible inputs
+                const secondBestInputs = question.querySelectorAll('.second-best-keyword');
+                secondBestInputs.forEach(input => input.required = true);
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.question[style="display: block;"]').forEach(question => {
+                const bestInputs = question.querySelectorAll('.best-keyword');
+                const secondBestInputs = question.querySelectorAll('.second-best-keyword');
+                const warning = question.querySelector(`#${question.dataset.questionName}_warning`);
+                
+                function checkDuplicate() {
+                    const bestSelected = [...bestInputs].find(input => input.checked)?.value;
+                    const secondBestSelected = [...secondBestInputs].find(input => input.checked)?.value;
+
+                    if (bestSelected && secondBestSelected && bestSelected === secondBestSelected) {
+                        warning.style.display = 'block';
+                        [...secondBestInputs].forEach(input => input.checked = false);
+                    } else {
+                        warning.style.display = 'none';
+                    }
+                }
+
+                [...bestInputs, ...secondBestInputs].forEach(input => {
+                    input.addEventListener('change', checkDuplicate);
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+
+

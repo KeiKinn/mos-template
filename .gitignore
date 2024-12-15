@@ -1,5 +1,4 @@
 # User-specific files
-res/
 .venv/
 # Ignore build output
 build/
